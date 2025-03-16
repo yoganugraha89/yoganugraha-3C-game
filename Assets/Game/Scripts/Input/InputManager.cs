@@ -15,6 +15,7 @@ public class InputManager : MonoBehaviour
     public Action OnGlideInput;
     public Action OnCancelGlide;
     public Action OnPunchInput;
+    public Action OnMainMenuInput;
 
     private void Update()
     {
@@ -159,7 +160,11 @@ public class InputManager : MonoBehaviour
         bool isMainMenuInput =Input.GetKeyDown(KeyCode.Escape);
          if (isMainMenuInput)
         {
-            Debug.Log("Main Menu");
+            // Debug.Log("Main Menu");
+            if (OnMainMenuInput != null)
+            {
+                OnMainMenuInput();
+            }
         }
     }
 

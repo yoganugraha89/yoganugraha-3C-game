@@ -74,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
 
     private LayerMask _hitLayer;
+    [SerializeField]
+    private PlayerAudioManager _playerAudioManager;
 
     private void Awake()
     {
@@ -325,6 +327,7 @@ public class PlayerMovement : MonoBehaviour
             _animator.SetBool("isGliding", true);
             _cameraManager.SetFPSClampedCamera(true, transform.rotation.eulerAngles);
             _playerStance = PlayerStance.Glide;
+            _playerAudioManager.PlayGlideSfx();
         }
     }
 
@@ -335,6 +338,7 @@ public class PlayerMovement : MonoBehaviour
             _animator.SetBool("isGliding", false);
             _cameraManager.SetFPSClampedCamera(false, transform.rotation.eulerAngles);
             _playerStance = PlayerStance.Stand;
+            _playerAudioManager.StopGlideSfx();
         }
     }
 
