@@ -67,6 +67,7 @@ public class InputManager : MonoBehaviour
     private void CheckJumpInput()
     {
         bool isPressJumpInput = Input.GetKeyDown(KeyCode.Space);
+
         if (isPressJumpInput)
         {
             // Debug.Log("Jump");
