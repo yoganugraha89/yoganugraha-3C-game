@@ -77,7 +77,8 @@ public class PlayerMovementGame : MonoBehaviour
     [SerializeField]
     private PlayerAudioManager _playerAudioManager;
     private Vector3 rotationDegree = Vector3.zero;
-
+    [SerializeField]
+    private Transform _resetCheckpointPosition;
 
     private void Awake()
     {
@@ -102,6 +103,8 @@ public class PlayerMovementGame : MonoBehaviour
         _input.OnCancelGlide += CancelGlide;
         _input.OnPunchInput += Punch;
         _cameraManager.OnChangePerspective += ChangePerspective;
+
+        _playerAudioManager.StopGlideSfx();
     }
 
     private void Update()
@@ -109,6 +112,15 @@ public class PlayerMovementGame : MonoBehaviour
         CheckIsGrounded();
         CheckStep();
         Glide();
+    }
+
+    public void ResetPositionToCheckpoint()
+    {
+        if (_resetCheckpointPosition != null)
+        {
+            transform.position = _resetCheckpointPosition.position;
+            transform.rotation = _resetCheckpointPosition.rotation;
+        }
     }
 
     private void ChangePerspective()
@@ -302,7 +314,7 @@ public class PlayerMovementGame : MonoBehaviour
         Vector3 checkerPositon = transform.position + (transform.up * 1.4f);
         bool isCantStand = Physics.Raycast(checkerPositon, transform.up, .25f, _groundLayer);
         if (isCantStand) return;
-        
+
         if(_playerStance == PlayerStance.Stand)
         {
             _playerStance = PlayerStance.Crouch;
